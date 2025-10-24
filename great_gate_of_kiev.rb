@@ -2,7 +2,7 @@
 # by Modest Mussorgsky
 # Sonic Pi arrangement
 #
-# Key: Eb major (opening) / D minor sections
+# Key: F major / C major progression
 #
 # Valid Sonic Pi synths used:
 # - :prophet (brass-like lead)
@@ -19,16 +19,16 @@ define :gate_theme do |transpose_by = 0|
   use_synth_defaults cutoff: 90, res: 0.5, attack: 0.1
   use_transpose transpose_by
 
-  # Measure 1: Whole note (4 beats) - Eb major
-  play_chord [:Eb4, :G4, :Bb4, :Eb5], amp: 1.2, release: 3.8, sustain: 3.5
+  # Measure 1: Whole note (4 beats) - F major triad
+  play_chord [:A3, :C4, :F4], amp: 1.2, release: 3.8, sustain: 3.5
   sleep 4
 
-  # Measure 2: Whole note (4 beats) - Bb major (different chord)
-  play_chord [:Bb3, :D4, :F4, :Bb4], amp: 1.2, release: 3.8, sustain: 3.5
+  # Measure 2: Whole note (4 beats) - C major triad
+  play_chord [:C4, :E4, :G4], amp: 1.2, release: 3.8, sustain: 3.5
   sleep 4
 
   # Measure 3: Half note (2 beats) + two quarter notes slurred (1+1 beats)
-  play_chord [:C4, :F4, :A4], amp: 1.2, release: 1.8, sustain: 1.5
+  play_chord [:C3, :F3, :A5], amp: 1.2, release: 1.8, sustain: 1.5
   sleep 2
   play :F4, amp: 1.2, release: 0.9, sustain: 0.5
   sleep 1
@@ -58,8 +58,8 @@ define :melodic_run do |transpose_by = 0|
   use_synth_defaults cutoff: 95, res: 0.4, attack: 0.02
   use_transpose transpose_by
 
-  # Flowing eighth note patterns based on bar 15+
-  notes = [:Eb4, :F4, :G4, :Eb4, :Ab4, :G4, :F4, :Eb4]
+  # Flowing eighth note patterns in F major/C major
+  notes = [:F4, :G4, :A4, :F4, :C5, :A4, :G4, :F4]
   times = [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
   play_pattern_timed notes, times, amp: 1.0, release: 0.4
 end
@@ -67,12 +67,24 @@ end
 # Supporting harmony using FM synthesis (inner voices)
 define :harmony_line do |transpose_by = 0|
   use_synth :fm
-  use_synth_defaults divisor: 0.5, depth: 1.5, attack: 0.1, sustain: 1.5
+  use_synth_defaults divisor: 0.5, depth: 1.5, attack: 0.1, sustain: 3.5
   use_transpose transpose_by
 
-  # Sustained inner harmony notes (2 beats each)
-  play_pattern_timed [:G3, :G3, :Ab3, :G3], [2, 2, 2, 2], amp: 0.7, release: 1.8
-  play_pattern_timed [:Bb3, :Bb3, :C4, :Bb3], [2, 2, 2, 2], amp: 0.7, release: 1.8
+  # Measure 1: F major harmony (4 beats)
+  play :C4, amp: 0.7, release: 3.8
+  sleep 4
+
+  # Measure 2: C major harmony (4 beats)
+  play :E4, amp: 0.7, release: 3.8
+  sleep 4
+
+  # Measure 3: F major harmony (4 beats total)
+  play :F3, amp: 0.7, release: 3.8
+  sleep 4
+
+  # Measure 4: C major harmony (4 beats)
+  play :G3, amp: 0.7, release: 3.8
+  sleep 4
 end
 
 # Deep bass foundation using detuned saw wave
@@ -82,13 +94,17 @@ define :bass_line do |transpose_by = 0|
   use_transpose transpose_by
 
   # Sustained bass notes supporting the harmony (4 beats each)
-  play :Eb2, amp: 0.9, release: 3.8
-  sleep 4
-  play :Eb2, amp: 0.9, release: 3.8
-  sleep 4
+  # Measure 1: F major
   play :F2, amp: 0.9, release: 3.8
   sleep 4
-  play :Eb2, amp: 0.9, release: 3.8
+  # Measure 2: C major
+  play :C2, amp: 0.9, release: 3.8
+  sleep 4
+  # Measure 3: F major
+  play :F2, amp: 0.9, release: 3.8
+  sleep 4
+  # Measure 4: C major
+  play :C2, amp: 0.9, release: 3.8
   sleep 4
 end
 
@@ -96,13 +112,13 @@ end
 define :bell_chords do
   use_synth :pretty_bell
 
-  play_chord [:Eb4, :G4, :Bb4], amp: 0.5, release: 2
+  play_chord [:F4, :A4, :C5], amp: 0.5, release: 2
   sleep 4
-  play_chord [:Ab4, :C5, :Eb5], amp: 0.5, release: 2
+  play_chord [:C4, :E4, :G4], amp: 0.5, release: 2
   sleep 4
-  play_chord [:F4, :Ab4, :C5], amp: 0.5, release: 2
+  play_chord [:F4, :A4, :C5], amp: 0.5, release: 2
   sleep 4
-  play_chord [:Eb4, :G4, :Bb4, :Eb5], amp: 0.6, release: 3
+  play_chord [:C4, :E4, :G4, :C5], amp: 0.6, release: 3
   sleep 4
 end
 
