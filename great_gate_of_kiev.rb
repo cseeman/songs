@@ -52,18 +52,6 @@ define :gate_theme do |transpose_by = 0|
   sleep 1
 end
 
-# Melodic passage (appears later in the piece with running notes)
-define :melodic_run do |transpose_by = 0|
-  use_synth :prophet
-  use_synth_defaults cutoff: 95, res: 0.4, attack: 0.02
-  use_transpose transpose_by
-
-  # Flowing eighth note patterns in F major/C major
-  notes = [:F4, :G4, :A4, :F4, :C5, :A4, :G4, :F4]
-  times = [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
-  play_pattern_timed notes, times, amp: 1.0, release: 0.4
-end
-
 # Supporting harmony using FM synthesis (inner voices)
 define :harmony_line do |transpose_by = 0|
   use_synth :fm
@@ -156,17 +144,16 @@ gate_theme
 
 sleep 2
 
-# Section 2: Building with melodic material
-puts "Adding melodic passages..."
-cue :melodic_section
+# Section 2: Building intensity
+puts "Repeating theme..."
+cue :theme_repeat
 
 in_thread do
   bass_line
 end
 
 in_thread do
-  sleep 4
-  melodic_run
+  harmony_line
 end
 
 gate_theme
@@ -191,8 +178,7 @@ in_thread do
 end
 
 in_thread do
-  sleep 2
-  melodic_run 12
+  harmony_line 12
 end
 
 gate_theme 12
@@ -203,7 +189,7 @@ sleep 2
 cue :finale
 use_synth :prophet
 use_synth_defaults cutoff: 100, res: 0.6
-play_chord [:Eb5, :G5, :Bb5, :Eb6], amp: 1.8, release: 6, attack: 0.1
+play_chord [:F5, :A5, :C6, :F6], amp: 1.8, release: 6, attack: 0.1
 sleep 6
 
 puts "Finale!"
